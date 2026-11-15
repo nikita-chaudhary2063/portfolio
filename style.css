@@ -1,0 +1,240 @@
+/* ============================================================
+   style.css: the look of your website
+   Rule format:  selector { property: value; }
+   The selector says WHAT to style. Each line inside says HOW.
+   ============================================================ */
+
+/* 1. COLORS: saved once here, used everywhere with var(--name).
+      Change a color here and the whole site updates. */
+:root {
+  --paper: #f3f6fb;     /* page background */
+  --ink: #3d1431;       /* main text color */
+  --muted: #414652;     /* softer text color */
+  --accent: #2b50ff;    /* blue for links and buttons */
+  --highlight: #ffe45e; /* yellow underline accent */
+  --card: #ffffff;      /* white card background */
+}
+
+/* 2. BASICS: styles for the whole page */
+* {
+  box-sizing: border-box; /* makes widths easier to predict */
+}
+
+html {
+  scroll-behavior: smooth; /* menu links glide to sections */
+}
+
+body {
+  margin: 0;                            /* remove the default gap */
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 1.05rem;                   /* 1rem = normal text size */
+  line-height: 1.7;                     /* space between lines */
+}
+
+h1, h2, h3 {
+  line-height: 1.15;
+  margin: 0 0 16px;
+}
+
+h1 { font-size: clamp(2.4rem, 7vw, 4.2rem); } /* grows with screen */
+h2 { font-size: 2rem; }
+h3 { font-size: 1.25rem; }
+
+p {
+  max-width: 65ch; /* keeps lines short and easy to read */
+  margin: 0 0 16px;
+}
+
+a {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* Keyboard users see where they are */
+a:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* 3. HEADER AND MENU */
+header {
+  position: sticky;  /* stays at the top while you scroll */
+  top: 0;
+  z-index: 10;       /* stays above other content */
+  display: flex;     /* puts name and menu on one row */
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  padding: 14px 24px;
+  background: var(--paper);
+  border-bottom: 2px solid var(--ink);
+}
+
+header p {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+nav a {
+  margin-left: 18px;
+  text-decoration: none; /* removes the underline */
+  color: var(--ink);
+}
+
+nav a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-color: var(--highlight);
+  text-decoration-thickness: 4px;
+  text-underline-offset: 4px;
+}
+
+/* 4. MAIN CONTENT: centered column */
+main {
+  max-width: 920px;
+  margin: 0 auto;      /* auto left and right = centered */
+  padding: 0 24px;
+}
+
+section {
+  padding: 56px 0;
+  scroll-margin-top: 70px; /* menu jumps stop below the header */
+}
+
+/* 5. HOME: the first section */
+#home {
+  padding-top: 80px;
+}
+
+#home p {
+  font-size: 1.2rem;
+  color: var(--muted);
+}
+
+/* Buttons: the two links in the home section */
+.button {
+  display: inline-block;
+  padding: 12px 22px;
+  margin: 8px 12px 0 0;
+  border: 2px solid var(--ink);
+  border-radius: 6px;
+  background: var(--accent);
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.button.second {
+  background: transparent;
+  color: var(--ink);
+}
+
+.button:hover {
+  background: var(--highlight);
+  color: var(--ink);
+}
+
+/* 6. ABOUT: photo next to the text */
+#about {
+  display: grid;
+  grid-template-columns: 200px 1fr; /* photo column, text column */
+  gap: 8px 32px;
+  align-items: start;
+}
+
+#about h2 {
+  grid-column: 1 / -1; /* heading across the full width */
+}
+
+#about img {
+  grid-row: 2 / span 3; /* photo spans the 3 paragraphs */
+  width: 200px;
+  height: 200px;
+  object-fit: cover;    /* crops the photo, no stretching */
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+}
+
+/* 7. PROJECTS: cards in a grid */
+#projects {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 22px;
+}
+
+#projects h2 {
+  grid-column: 1 / -1;
+}
+
+article {
+  background: var(--card);
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+}
+
+article p {
+  color: var(--muted);
+}
+
+/* The "Built with" line */
+article p:nth-of-type(2) {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+article a {
+  margin-top: auto; /* pushes the link to the card bottom */
+}
+
+/* 8. SKILLS AND LEARNING PLAN: lists */
+ul, ol {
+  padding-left: 22px;
+  margin: 0 0 24px;
+}
+
+li {
+  margin-bottom: 8px;
+}
+
+#learning ol li::marker {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* 9. FOOTER */
+footer {
+  text-align: center;
+  padding: 28px 24px;
+  border-top: 2px solid var(--ink);
+  color: var(--muted);
+}
+
+footer p {
+  margin: 0 auto;
+}
+
+/* 10. PHONES: changes for screens narrower than 640px */
+@media (max-width: 640px) {
+  nav a {
+    margin: 0 14px 0 0;
+  }
+
+  #about {
+    grid-template-columns: 1fr; /* one column on small screens */
+  }
+
+  #about img {
+    grid-row: auto;
+  }
+}
+
+/* People who turn off animations get none */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
